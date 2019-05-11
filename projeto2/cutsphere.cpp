@@ -13,6 +13,5 @@ CutSphere::~CutSphere()
 
 
 void CutSphere::draw(Sculptor &t){
-
-
+    t.cutSphere(xcenter,ycenter,zcenter,radius);
 }

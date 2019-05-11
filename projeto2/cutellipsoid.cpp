@@ -17,6 +17,5 @@ CutEllipsoid::~CutEllipsoid()
 
 
 void CutEllipsoid::draw(Sculptor &t){
-
-
+    t.cutEllipsoid(xcenter, ycenter, zcenter, rx, ry, rz);
 }

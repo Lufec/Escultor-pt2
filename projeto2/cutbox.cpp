@@ -12,8 +12,7 @@ CutBox::~CutBox()
 }
 
 void CutBox::draw(Sculptor &t){
-
-
+    t.cutBox(x0,y0,z0,x1,y1,z1);
 }
 
 
