@@ -71,129 +71,20 @@ void Sculptor::setColor(float _r, float _g, float _b, float alpha)
 
 void Sculptor::putVoxel( int x, int y, int z)
 {
-    if(x>=nx||x<0||y>=ny||y<0||z>=nz||z<0){
-        cout<<"Parâmetros em 'putVoxel' inválidos"<<endl;
-        exit(1);
+    if(x<nx && x >= 0 && y < ny && y >= 0 && z < nz && z>= 0){
+
+        v[x][y][z].isOn = true;
+        v[x][y][z].r = r;
+        v[x][y][z].g = g;
+        v[x][y][z].b = b;
+        v[x][y][z].a = a;
     }
-
-
-    v[x][y][z].isOn = true;
-    v[x][y][z].r = r;
-    v[x][y][z].g = g;
-    v[x][y][z].b = b;
-    v[x][y][z].a = a;
-
-
 }
 
 void Sculptor::cutVoxel( int x, int y, int z)
 {
-    if(x>=nx||x<0||y>=ny||y<0||z>=nz||z<0){
-        cout<<"Parâmetros em 'cutVoxel' inválidos"<<endl;
-        exit(1);
-    }
-    v[x][y][z].isOn = false;
-
-}
-
-void Sculptor::putBox(int x0, int x1, int y0, int y1, int z0, int z1)
-{
-    if(x0<0||x1>=nx||y0<0||y1>=ny||z0<0||z1>=nz){
-        cout<<"Parâmetros em 'putBox' inválidos"<<endl;
-        exit(1);
-    }
-    for(int i=x0; i<=x1; i++){
-        for(int j=y0; j<=y1; j++){
-            for (int k=z0; k<=z1; k++) {
-                putVoxel(i,j,k);
-            }
-        }
-    }
-}
-
-void Sculptor::cutBox(int x0, int x1, int y0, int y1, int z0, int z1)
-{
-    if(x0<0||x1>=nx||y0<0||y1>=ny||z0<0||z1>=nz){
-        cout<<"Parâmetros em 'cutBox' inválidos"<<endl;
-        exit(1);
-    }
-    for(int i=x0; i<=x1; i++){
-        for(int j=y0; j<=y1; j++){
-            for (int k=z0; k<=z1; k++) {
-                cutVoxel(i,j,k);
-
-            }
-        }
-    }
-}
-
-void Sculptor::putSphere(int xcenter, int ycenter, int zcenter, int radius)
-{
-
-    float dx,dy,dz;
-    for(int i=0; i<nx; i++){
-        dx=((static_cast<float>(i)-xcenter)/radius)*((static_cast<float>(i)-xcenter)/radius);
-        for(int j=0; j<ny; j++){
-            dy=((static_cast<float>(j)-ycenter)/radius)*((static_cast<float>(j)-ycenter)/radius);
-            for (int k=0; k<nz; k++) {
-                dz=((static_cast<float>(k)-zcenter)/radius)*((static_cast<float>(k)-zcenter)/radius);
-
-                if(dx+dy+dz<=1){
-                    putVoxel(i,j,k);
-                }
-            }
-        }
-    }
-}
-
-void Sculptor::cutSphere(int xcenter, int ycenter, int zcenter, int radius)
-{
-    float dx,dy,dz;
-    for(int i=0; i<nx; i++){
-        dx=((static_cast<float>(i)-xcenter)/radius)*((static_cast<float>(i)-xcenter)/radius);
-        for(int j=0; j<ny; j++){
-            dy=((static_cast<float>(j)-ycenter)/radius)*((static_cast<float>(j)-ycenter)/radius);
-            for (int k=0; k<nz; k++) {
-                dz=((static_cast<float>(k)-zcenter)/radius)*((static_cast<float>(k)-zcenter)/radius);
-                if(dx+dy+dz<=1){
-                    cutVoxel(i,j,k);
-                }
-            }
-        }
-    }
-}
-
-void Sculptor::putEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
-{
-    float dx,dy,dz;
-    for(int i=0; i<nx; i++){
-        dx=((static_cast<float>(i)-xcenter)/rx)*((static_cast<float>(i)-xcenter)/rx);
-        for(int j=0; j<ny; j++){
-            dy=((static_cast<float>(j)-ycenter)/ry)*((static_cast<float>(j)-ycenter)/ry);
-            for (int k=0; k<nz; k++) {
-                dz=((static_cast<float>(k)-zcenter)/rz)*((static_cast<float>(k)-zcenter)/rz);
-                if(dx+dy+dz<=1){
-                    putVoxel(i,j,k);
-                }
-            }
-        }
-    }
-}
-
-void Sculptor::cutEllipsoid(int xcenter, int ycenter, int zcenter, int rx, int ry, int rz)
-{
-    float dx,dy,dz;
-    for(int i=0; i<nx; i++){
-        dx=((static_cast<float>(i)-xcenter)/rx)*((static_cast<float>(i)-xcenter)/rx);
-        for(int j=0; j<ny; j++){
-            dy=((static_cast<float>(j)-ycenter)/ry)*((static_cast<float>(j)-ycenter)/ry);
-            for (int k=0; k<nz; k++) {
-                dz=((static_cast<float>(k)-zcenter)/rz)*((static_cast<float>(k)-zcenter)/rz);
-                if(dx+dy+dz<=1){
-                    cutVoxel(i,j,k);
-                }
-            }
-        }
+    if(x<nx && x >= 0 && y < ny && y >= 0 && z < nz && z>= 0){
+        v[x][y][z].isOn = false;
     }
 }
 
