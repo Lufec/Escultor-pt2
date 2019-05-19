@@ -1,11 +1,7 @@
-#include <iostream>
 #include <vector>
-#include <string>
 #include <fstream>
 #include <sstream>
 
-#include "sculptor.h"
-#include "figurageometrica.h"
 #include "putvoxel.h"
 #include "cutvoxel.h"
 #include "putbox.h"
@@ -18,11 +14,21 @@
 
 using namespace std;
 
-
+/**
+ * @brief main constitutes of 7 parts:
+ * 1) open a file with given instructions to draw the figure
+ * 2) Separate each line in a vector of strings
+ * 3) Read the first line to construct the Sculptor and construct it
+ * 4) Read each line after that to creat the vector of FiguraGeometrica*. Depending on what is written, a diferent class is called and created
+ * 5) After storing everything in FiguraGeometrica*, a function draw is called to all elements and is executed according to each definition.
+ * 6) Everything in FiguraGeometrica is deleted, don't need to use it again
+ * 7) Functions to write the OFF and VECT archives is called
+ */
 int main()
 {
+    //1
     ifstream inputFile;
-    inputFile.open("/home/lufec/Desktop/Prog Avanc/Parte2/projeto2/teste.txt");
+    inputFile.open("/home/lufec/Escultor2/teste.txt");
 
     if(!inputFile)
     {
@@ -30,15 +36,16 @@ int main()
         exit(1);
     }
 
+    //2
     vector<string> linhas;
     string linha;
-    vector<int>::iterator it;
 
     while(getline(inputFile,linha))
     {
         linhas.push_back(linha);
     }
 
+    //3
     int nx=0,ny=0,nz=0;
     stringstream header(linhas[0]);
     string nome;
@@ -46,10 +53,11 @@ int main()
     header >> nx >> ny >> nz;
 
     Sculptor t(nx,ny,nz); //nx,ny,nz
+
+    //4
     vector<FiguraGeometrica*> figs;
 
-
-    for(int i=1; i<linhas.size();i++){
+    for(int i=1; i<static_cast<int>(linhas.size());i++){
         stringstream tipo(linhas[i]);
         tipo >> nome;
 
@@ -103,15 +111,20 @@ int main()
         }
     }
 
-    for (int i =0; i<figs.size(); i++){
+    //5
+
+    for (int i =0; i<static_cast<int>(figs.size()); i++){
         figs[i]->draw(t);
     }
-    for (int i =0; i<figs.size(); i++){
+
+    //6
+    for (int i =0; i<static_cast<int>(figs.size()); i++){
         delete figs[i];
     }
 
-    t.writeOFF("/home/lufec/Desktop/Prog Avanc/Parte2/projeto2/off.off");
-    t.writeVECT("/home/lufec/Desktop/Prog Avanc/Parte2/projeto2/vect.vect");
+    //7
+    t.writeOFF("/home/lufec/Escultor2/off.off");
+    t.writeVECT("/home/lufec/Escultor2/vect.vect");
     inputFile.close();
     return 0;
 }
